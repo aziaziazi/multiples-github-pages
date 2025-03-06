@@ -1,0 +1,22 @@
+name: Deploy site from master
+
+on:
+  repository_dispatch:
+    types: [staging_push]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: 'pages'
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send repository dispatch event
+        run: |
+          echo "hello from main"
